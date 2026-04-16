@@ -1,0 +1,110 @@
+<script>
+    // Datos de los departamentos
+    const properties = [
+        {
+            id: 1,
+            title: "Loft Roma Norte",
+            location: "Cuauhtémoc, CDMX",
+            price: 2500,
+            beds: 1,
+            baths: 1,
+            image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+        },
+        {
+            id: 2,
+            title: "Suite Polanco",
+            location: "Miguel Hidalgo, CDMX",
+            price: 3800,
+            beds: 2,
+            baths: 2,
+            image: "https://images.unsplash.com/photo-1560448075-bb485b067938?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+        },
+        {
+            id: 3,
+            title: "Ático Condesa",
+            location: "Cuauhtémoc, CDMX",
+            price: 4200,
+            beds: 1,
+            baths: 1,
+            image: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+        }
+    ];
+
+    // Elementos del Modal
+    const modal = document.getElementById('modal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalLocation = document.getElementById('modalLocation');
+    const modalBeds = document.getElementById('modalBeds');
+    const modalBaths = document.getElementById('modalBaths');
+    const modalPrice = document.getElementById('modalPrice');
+
+    // Abrir Modal
+    const openModal = (property) => {
+        modalImage.src = property.image;
+        modalTitle.innerText = property.title;
+        modalLocation.innerText = property.location;
+        modalBeds.innerText = property.beds;
+        modalBaths.innerText = property.baths;
+        modalPrice.innerText = $${property.price} / noche;
+        
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Cerrar Modal
+    const closeModal = () => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Renderizar todas las propiedades en la página
+    const renderProperties = () => {
+        const container = document.getElementById('properties');
+        
+        properties.forEach(prop => {
+            const card = document.createElement('div');
+            card.className = "bg-white rounded-2xl overflow-hidden shadow-md card-hover cursor-pointer";
+            card.onclick = () => openModal(prop);
+            
+            card.innerHTML = `
+                <div class="h-56 overflow-hidden">
+                    <img src="${prop.image}" alt="${prop.title}" class="w-full h-full object-cover transition duration-700 hover:scale-110">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center text-sm text-gray-500 mb-2">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1%3D0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        ${prop.location}
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">${prop.title}</h3>
+                    <div class="flex items-center text-sm text-gray-600 mb-4 space-x-4">
+                        <span>${prop.beds} Habitaciones</span>
+                        <span>${prop.baths} Baños</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-huga-terracota font-bold text-xl">$${prop.price} <span class="font-normal text-sm">/ noche</span></span>
+                        <button class="bg-huga-verde text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-opacity-90 transition">Ver más</button>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(card);
+        });
+    }
+
+    // Función para el formulario
+    const enviarFormulario = () => {
+        alert('¡Mensaje enviado con éxito! Te contactaremos muy pronto. 📩');
+        document.querySelector('form').reset();
+    }
+
+    // Ejecutar cuando cargue la página
+    document.addEventListener('DOMContentLoaded', () => {
+        renderProperties();
+    });
+</script>
